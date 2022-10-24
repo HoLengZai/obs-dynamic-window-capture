@@ -4,6 +4,7 @@ import win32process
 import psutil
 import os
 import re
+import debugpy
 # ------------------------------------------------------------
 
 def script_description():
@@ -48,12 +49,27 @@ def script_update(settings):
 
 def enum_windows():
     def callback(handle, data):
-        tid, pid = win32process.GetWindowThreadProcessId(handle)
-        windows.append({
-          "title": win32gui.GetWindowText(handle),
-          "class": win32gui.GetClassName(handle),
-          "executable": os.path.basename(psutil.Process(pid).exe())
-        })
+        try:
+            tid, pid = win32process.GetWindowThreadProcessId(handle)
+            # window_textName = win32gui.GetWindowText(handle)
+            # window_className = win32gui.GetClassName(handle)
+            # if window_textName is None:
+            #     window_textName = "-"
+            # if window_className is None:
+            #     window_className = "-"
+
+            # windows.append({
+            # "title": window_textName,
+            # "class": window_className,
+            # "executable": os.path.basename(psutil.Process(pid).exe())
+            # })
+            windows.append({
+            "title": win32gui.GetWindowText(handle),
+            "class": win32gui.GetClassName(handle),
+            "executable": os.path.basename(psutil.Process(pid).exe())
+            })
+        except:
+            return True
 
     windows = []
     win32gui.EnumWindows(callback, None)
