@@ -1,3 +1,2 @@
-#win32gui - Note: https://stackoverflow.com/a/57001086/11559874
 pywin32
 psutil

@@ -51,18 +51,6 @@ def enum_windows():
     def callback(handle, data):
         try:
             tid, pid = win32process.GetWindowThreadProcessId(handle)
-            # window_textName = win32gui.GetWindowText(handle)
-            # window_className = win32gui.GetClassName(handle)
-            # if window_textName is None:
-            #     window_textName = "-"
-            # if window_className is None:
-            #     window_className = "-"
-
-            # windows.append({
-            # "title": window_textName,
-            # "class": window_className,
-            # "executable": os.path.basename(psutil.Process(pid).exe())
-            # })
             windows.append({
             "title": win32gui.GetWindowText(handle),
             "class": win32gui.GetClassName(handle),
